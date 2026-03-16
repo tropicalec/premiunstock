@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tropical Ecu — Moda & Calzado Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0a0a0a; --off-black: #111111; --deep: #161616; --card: #131313;
+      --gold: #c9a84c; --gold-light: #e8c97a; --gold-dim: rgba(201,168,76,0.13);
+      --white: #f5f2ee; --off-white: #ded9d0; --gray: #777; --gray-light: #555;
+      --border: rgba(201,168,76,0.18); --border-soft: rgba(255,255,255,0.06);
+      --font-d: 'Cormorant Garamond', serif; --font-b: 'Outfit', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-b); font-weight: 300; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-d); font-size: 1.45rem; font-weight: 600; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
+    .nav-cta { background: var(--gold); color: var(--black); padding: 10px 28px; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: background 0.3s, transform 0.2s; }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* MARQUEE */
+    .marquee-bar { background: var(--gold); overflow: hidden; padding: 12px 0; }
+    .marquee-track { display: flex; animation: marquee 24s linear infinite; white-space: nowrap; }
+    .mi { font-family: var(--font-d); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); padding: 0 34px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* BASE */
+    .sec { padding: 96px 48px; max-width: 1160px; margin: 0 auto; }
+    .lbl { display: inline-block; font-size: 0.66rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .display { font-family: var(--font-d); font-weight: 300; line-height: 1.05; }
+    .display em { font-style: italic; color: var(--gold); }
+    .body-t { font-size: 0.9rem; color: var(--gray); line-height: 1.82; }
+    .divider { max-width: 1160px; margin: 0 auto; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 140px 24px 100px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 65%), radial-gradient(ellipse 35% 35% at 15% 85%, rgba(201,168,76,0.05) 0%, transparent 60%); }
+    .hero-tag { font-size: 0.68rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); margin-bottom: 30px; opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards; }
+    .hero-h1 { font-family: var(--font-d); font-size: clamp(4rem, 10vw, 9.5rem); font-weight: 300; line-height: 0.88; letter-spacing: -0.02em; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards; }
+    .hero-h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 1rem; color: var(--gray); max-width: 460px; line-height: 1.75; margin-bottom: 18px; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+    .hero-promise { font-family: var(--font-d); font-size: 1.15rem; font-style: italic; color: var(--off-white); margin-bottom: 52px; opacity: 0; animation: fadeUp 0.8s ease 0.62s forwards; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 0.8s ease 0.75s forwards; }
+    .btn-gold { background: var(--gold); color: var(--black); padding: 17px 48px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; display: inline-block; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(201,168,76,0.28); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--off-white); padding: 17px 48px; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; background: transparent; cursor: pointer; transition: all 0.3s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .scroll-hint { position: absolute; bottom: 36px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s ease 1.1s forwards; }
+    .scroll-hint span { font-size: 0.63rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray-light); }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--gold), transparent); animation: pulse 2s ease-in-out infinite; }
+
+    /* 2 PROBLEMA */
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 52px; }
+    .prob-card { padding: 44px 40px; background: var(--card); border: 1px solid var(--border-soft); transition: border-color 0.3s; }
+    .prob-card:hover { border-color: var(--border); }
+    .prob-card .ico { font-size: 2rem; margin-bottom: 20px; display: block; }
+    .prob-card h3 { font-family: var(--font-d); font-size: 1.55rem; font-weight: 500; margin-bottom: 12px; }
+    .prob-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.8; }
+    .prob-quote { margin-top: 52px; padding: 38px 48px; border-left: 2px solid var(--gold); background: var(--gold-dim); }
+    .prob-quote blockquote { font-family: var(--font-d); font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.5; color: var(--off-white); }
+    .prob-quote cite { display: block; margin-top: 14px; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-style: normal; }
+
+    /* 3 SOLUCION */
+    .sol-wrap { background: var(--deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .sol-inner { max-width: 1160px; margin: 0 auto; padding: 96px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .sol-text p { font-size: 0.88rem; color: var(--gray); line-height: 1.85; margin-bottom: 18px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pill { padding: 7px 18px; border: 1px solid var(--border); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .sol-swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .swatch { position: relative; overflow: hidden; cursor: default; transition: transform 0.35s; }
+    .swatch:hover { transform: scale(1.03); z-index: 2; }
+    .swatch-lbl { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 28px 14px 12px; opacity: 0; transform: translateY(5px); transition: all 0.3s; }
+    .swatch:hover .swatch-lbl { opacity: 1; transform: translateY(0); }
+    .swatch-lbl span { font-family: var(--font-d); font-size: 1.1rem; font-weight: 500; display: block; }
+    .swatch-lbl small { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
+    /* 4 BENEFICIOS */
+    .ben-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+    .ben { padding: 46px 34px; background: var(--card); border: 1px solid var(--border-soft); transition: background 0.3s, border-color 0.3s; position: relative; overflow: hidden; }
+    .ben::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform 0.4s; }
+    .ben:hover { background: #161616; border-color: var(--border); }
+    .ben:hover::before { transform: scaleX(1); }
+    .ben .ico { font-size: 2.1rem; margin-bottom: 20px; display: block; }
+    .ben h3 { font-family: var(--font-d); font-size: 1.48rem; font-weight: 500; margin-bottom: 10px; }
+    .ben p { font-size: 0.83rem; color: var(--gray); line-height: 1.8; }
+    .ben-res { display: inline-block; margin-top: 16px; font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+
+    /* 5 PRUEBA SOCIAL */
+    .reviews-wrap { background: var(--deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .reviews-inner { max-width: 1160px; margin: 0 auto; padding: 96px 48px; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+    .rv { padding: 38px 34px; background: var(--card); border: 1px solid var(--border-soft); transition: border-color 0.3s; }
+    .rv:hover { border-color: var(--border); }
+    .stars { color: var(--gold); font-size: 0.88rem; letter-spacing: 3px; margin-bottom: 16px; }
+    .rv-text { font-family: var(--font-d); font-size: 1.15rem; font-style: italic; font-weight: 300; line-height: 1.55; color: var(--off-white); margin-bottom: 20px; }
+    .rv-person { display: flex; align-items: center; gap: 13px; }
+    .rv-av { width: 38px; height: 38px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--font-d); font-size: 1rem; font-weight: 600; color: var(--gold); flex-shrink: 0; }
+    .rv-name { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.06em; }
+    .rv-city { font-size: 0.66rem; color: var(--gray); letter-spacing: 0.1em; margin-top: 2px; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
+    .stat { padding: 38px 32px; background: var(--card); border: 1px solid var(--border-soft); text-align: center; }
+    .stat-n { font-family: var(--font-d); font-size: 3.4rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+    .stat-l { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); }
+
+    /* 6 OFERTA - PAGO */
+    .pago-sec { padding: 96px 48px; max-width: 1160px; margin: 0 auto; }
+    .pago-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 52px; }
+    .pay { padding: 52px 46px; border: 1px solid var(--border-soft); background: var(--card); position: relative; overflow: hidden; transition: border-color 0.3s; }
+    .pay::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform 0.4s; }
+    .pay:hover { border-color: rgba(201,168,76,0.4); }
+    .pay:hover::before { transform: scaleX(1); }
+    .pay .ico { font-size: 2.4rem; margin-bottom: 22px; display: block; }
+    .pay h3 { font-family: var(--font-d); font-size: 2rem; font-weight: 500; margin-bottom: 14px; }
+    .pay p { font-size: 0.86rem; color: var(--gray); line-height: 1.78; }
+    .pay-badge { display: inline-block; margin-top: 20px; padding: 6px 16px; background: var(--gold-dim); border: 1px solid var(--border); font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+
+    /* PANTALONES */
+    .pant-wrap { background: var(--deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pant-inner { max-width: 1160px; margin: 0 auto; padding: 96px 48px; }
+    .colores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 48px; }
+    .cc { aspect-ratio: 3/5; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.4s; }
+    .cc:hover { transform: scale(1.02); z-index: 2; }
+    .cc-lbl { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.82)); padding: 34px 16px 16px; opacity: 0; transform: translateY(6px); transition: all 0.3s; }
+    .cc:hover .cc-lbl { opacity: 1; transform: translateY(0); }
+    .cc-lbl span { font-family: var(--font-d); font-size: 1.25rem; font-weight: 500; display: block; }
+    .cc-lbl small { font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
+    /* PRODUCTO GRID + CARRUSEL */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; }
+    .prod-card { background: var(--card); border: 1px solid var(--border-soft); overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .prod-card:hover { border-color: var(--border); transform: translateY(-4px); }
+    .carousel { position: relative; overflow: hidden; aspect-ratio: 4/5; background: #0e0e0e; }
+    .carousel-track { display: flex; height: 100%; transition: transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .carousel-track img { min-width: 100%; width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; user-select: none; pointer-events: none; }
+    .car-prev, .car-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); color: var(--gold); border: 1px solid var(--border); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; transition: background 0.2s, opacity 0.2s; opacity: 0; z-index: 5; line-height: 1; }
+    .carousel:hover .car-prev, .carousel:hover .car-next { opacity: 1; }
+    .car-prev { left: 10px; }
+    .car-next { right: 10px; }
+    .car-prev:hover, .car-next:hover { background: rgba(201,168,76,0.25); }
+    .car-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 5; }
+    .car-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: background 0.25s, transform 0.25s; }
+    .car-dot.active { background: var(--gold); transform: scale(1.4); }
+    .car-counter { position: absolute; top: 10px; right: 12px; background: rgba(0,0,0,0.6); color: var(--off-white); font-size: 0.63rem; letter-spacing: 0.1em; padding: 3px 9px; z-index: 5; }
+    .prod-body { padding: 22px 22px 26px; }
+    .prod-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .prod-tag { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border-soft); color: var(--gray); }
+    .prod-tag-new { border-color: rgba(201,168,76,0.4); color: var(--gold); }
+    .prod-tag-hot { background: rgba(220,40,40,0.1); border-color: rgba(220,40,40,0.4); color: #e05555; }
+    .prod-tag-lux { background: var(--gold-dim); border-color: var(--border); color: var(--gold); }
+    .prod-name { font-family: var(--font-d); font-size: 1.42rem; font-weight: 500; margin-bottom: 8px; line-height: 1.2; }
+    .prod-desc { font-size: 0.79rem; color: var(--gray); line-height: 1.7; margin-bottom: 14px; }
+    .prod-colors { display: flex; gap: 7px; margin-bottom: 14px; align-items: center; }
+    .dot-color { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.15); cursor: default; transition: transform 0.2s; }
+    .dot-color:hover { transform: scale(1.25); }
+    .prod-szs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 16px; }
+    .prod-ft { display: flex; justify-content: space-between; align-items: center; }
+    .prod-price { font-family: var(--font-d); font-size: 1.85rem; font-weight: 600; color: var(--gold); line-height: 1; }
+    .prod-btn { font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: 9px 18px; border: 1px solid var(--border-soft); transition: all 0.25s; }
+    .prod-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* TALLAS */
+    .talla-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+    .talla-table th { font-size: 0.67rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); padding: 14px 32px; text-align: center; border-bottom: 1px solid var(--border); }
+    .talla-table td { padding: 16px 32px; text-align: center; font-size: 0.9rem; color: var(--off-white); border-bottom: 1px solid var(--border-soft); transition: background 0.2s; }
+    .talla-table tr:hover td { background: var(--gold-dim); }
+    .tc { font-family: var(--font-d); font-size: 1.5rem; font-weight: 600; color: var(--gold); }
+    .tn { margin-top: 16px; font-size: 0.73rem; color: var(--gray); text-align: center; letter-spacing: 0.06em; }
+
+    /* CALZADO */
+    .calz-wrap { padding: 96px 48px; }
+    .calz-inner { max-width: 1160px; margin: 0 auto; }
+    .calz-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; margin-bottom: 44px; }
+    .bdg { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border: 1px solid var(--border-soft); font-size: 0.69rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--off-white); }
+    .bdg-hot { border-color: rgba(201,168,76,0.5); color: var(--gold); font-weight: 600; background: var(--gold-dim); }
+    .fltrs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 44px; }
+    .fbtn { padding: 10px 26px; font-family: var(--font-b); font-size: 0.71rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; border: 1px solid var(--border-soft); background: transparent; color: var(--gray); }
+    .fbtn.active { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 700; }
+    .fbtn:hover:not(.active) { border-color: var(--border); color: var(--off-white); }
+    .shoes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 2px; }
+    .sc { background: var(--card); border: 1px solid var(--border-soft); overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+    .sc:hover { transform: translateY(-5px); border-color: rgba(201,168,76,0.45); }
+    .sc-img { aspect-ratio: 1/1; overflow: hidden; position: relative; }
+    .sc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .sc:hover .sc-img img { transform: scale(1.07); }
+    .sc-bdg-wrap { position: absolute; top: 12px; left: 12px; }
+    .sc-bdg { font-size: 0.59rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 11px; }
+    .bdg-lux { background: var(--black); color: var(--gold); border: 1px solid var(--border); }
+    .bdg-prem { background: var(--gold); color: var(--black); }
+    .bdg-sport { background: var(--white); color: var(--black); }
+    .sc-body { padding: 24px 24px 28px; }
+    .sc-br { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .sc-nm { font-family: var(--font-d); font-size: 1.42rem; font-weight: 500; margin-bottom: 8px; line-height: 1.2; }
+    .sc-ds { font-size: 0.79rem; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+    .sc-szs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 14px; }
+    .sz { padding: 4px 9px; border: 1px solid var(--border-soft); font-size: 0.69rem; color: var(--off-white); }
+    .sc-units { font-size: 0.63rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0.85; margin-bottom: 12px; }
+    .sc-ft { display: flex; justify-content: space-between; align-items: center; }
+    .sc-price { font-family: var(--font-d); font-size: 1.85rem; font-weight: 600; color: var(--gold); line-height: 1; }
+    .sc-btn { font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: 9px 17px; border: 1px solid var(--border-soft); transition: all 0.25s; }
+    .sc-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* 7 FAQ */
+    .faq-wrap { background: var(--deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .faq-inner { max-width: 800px; margin: 0 auto; padding: 96px 48px; }
+    .faq-item { border-bottom: 1px solid var(--border-soft); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; cursor: pointer; gap: 18px; font-family: var(--font-d); font-size: 1.32rem; font-weight: 400; color: var(--white); transition: color 0.2s; user-select: none; }
+    .faq-q:hover { color: var(--gold); }
+    .faq-ico { font-size: 1.3rem; color: var(--gold); font-family: var(--font-b); font-weight: 300; flex-shrink: 0; transition: transform 0.3s; }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+    .faq-a p { font-size: 0.86rem; color: var(--gray); line-height: 1.85; padding-bottom: 22px; }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-item.open .faq-ico { transform: rotate(45deg); }
+    .faq-item.open .faq-q { color: var(--gold); }
+
+    /* 8 GARANTIA */
+    .gar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+    .gar { padding: 44px 34px; background: var(--card); border: 1px solid var(--border-soft); text-align: center; transition: border-color 0.3s; }
+    .gar:hover { border-color: var(--border); }
+    .gar .ico { font-size: 2.4rem; margin-bottom: 20px; display: block; }
+    .gar h3 { font-family: var(--font-d); font-size: 1.48rem; font-weight: 500; margin-bottom: 12px; }
+    .gar p { font-size: 0.83rem; color: var(--gray); line-height: 1.78; }
+
+    /* 9 CTA FINAL */
+    .cierre { padding: 120px 48px; text-align: center; position: relative; overflow: hidden; background: var(--off-black); border-top: 1px solid var(--border); }
+    .cierre::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%); }
+    .cierre > * { position: relative; z-index: 1; }
+    .cierre-urg { display: inline-flex; align-items: center; gap: 10px; padding: 9px 22px; border: 1px solid rgba(201,168,76,0.5); background: var(--gold-dim); margin-bottom: 36px; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .cierre h2 { font-family: var(--font-d); font-size: clamp(2.8rem, 7vw, 6.5rem); font-weight: 300; line-height: 1; margin-bottom: 24px; }
+    .cierre h2 em { font-style: italic; color: var(--gold); }
+    .cierre p { font-size: 0.9rem; color: var(--gray); max-width: 400px; margin: 0 auto 52px; line-height: 1.75; }
+    .cierre-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-ig { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; padding: 18px 44px; font-size: 0.79rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: opacity 0.3s, transform 0.2s; }
+    .btn-ig:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { padding: 42px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+    .f-logo { font-family: var(--font-d); font-size: 1.2rem; font-weight: 600; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+    .f-links { display: flex; gap: 22px; }
+    .f-links a { font-size: 0.69rem; color: var(--gray); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .f-links a:hover { color: var(--gold); }
+    .f-copy { font-size: 0.68rem; color: var(--gray-light); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .sec { padding: 64px 20px; }
+      .prob-grid, .ben-grid, .reviews-grid, .gar-grid, .pago-grid { grid-template-columns: 1fr; }
+      .sol-inner { grid-template-columns: 1fr; gap: 40px; padding: 64px 20px; }
+      .colores-grid { grid-template-columns: repeat(3, 1fr); }
+      .stats-row { grid-template-columns: 1fr; }
+      .pant-inner, .faq-inner, .reviews-inner { padding: 64px 20px; }
+      .calz-wrap, .pago-sec { padding: 64px 20px; }
+      .cierre { padding: 80px 20px; }
+      footer { padding: 32px 20px; flex-direction: column; text-align: center; }
+      .talla-table th, .talla-table td { padding: 12px 14px; }
+      .prod-grid { grid-template-columns: 1fr; }
+      .car-prev, .car-next { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Tropical Ecu</a>
+  <a class="nav-cta" href="https://www.instagram.com/tropicalecu/" target="_blank">Hacer pedido</a>
+</nav>
+
+
+<!-- ══ 1. HERO — EL GANCHO ══ -->
+<section class="hero">
+  <p class="hero-tag">Guayaquil, Ecuador · Envíos a todo el país</p>
+  <h1 class="hero-h1">Vístete<br>como <em>quieres</em><br>verte</h1>
+  <p class="hero-sub">Pantalones Baggy & Jogger premium + calzado de lujo. Entrega en tu puerta. Sin excusas.</p>
+  <p class="hero-promise">"Porque la elección de verte bien es tuya."</p>
+  <div class="hero-btns">
+    <a href="#oferta" class="btn-gold">Ver productos</a>
+    <a href="#calzado" class="btn-ghost">Ver calzado</a>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="mi">Baggy Jogger <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Calzado Premium <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Envíos a todo Ecuador <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Entrega Guayaquil <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Contra Entrega <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Pocas unidades <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Baggy Jogger <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Calzado Premium <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Envíos a todo Ecuador <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Entrega Guayaquil <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Contra Entrega <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+    <span class="mi">Pocas unidades <span style="color:rgba(0,0,0,0.3)">✦</span></span>
+  </div>
+</div>
+
+
+<!-- ══ 2. PROBLEMA — EL ESPEJO ══ -->
+<section class="sec" id="problema">
+  <span class="lbl">¿Te identificas?</span>
+  <h2 class="display" style="font-size:clamp(2rem,4vw,3.4rem);">Sabemos lo que sientes<br><em>cuando te miras al espejo</em></h2>
+  <div class="prob-grid">
+    <div class="prob-card"><span class="ico">😤</span><h3>Ropa que no te representa</h3><p>Entras a una tienda, ves lo mismo de siempre. Cortes aburridos, tallas que no quedan bien. Sales con las manos vacías o con algo que jamás vas a usar.</p></div>
+    <div class="prob-card"><span class="ico">💸</span><h3>Pagas caro, recibes poco</h3><p>Marcas que cobran fortunas y te entregan calidad mediocre. O marcas baratas que duran dos lavadas. El equilibrio entre precio, calidad y estilo parece imposible.</p></div>
+    <div class="prob-card"><span class="ico">📦</span><h3>Miedo a comprar online</h3><p>¿Y si no llega? ¿Y si no es lo que vi en la foto? ¿Y si pago y no pasa nada? Comprar ropa por internet en Ecuador a veces ha sido una mala experiencia.</p></div>
+    <div class="prob-card"><span class="ico">👟</span><h3>El calzado que completa el look</h3><p>Tienes el pantalón perfecto pero los zapatos arruinan todo. El calzado de lujo que quieres está fuera de alcance en el mall… o simplemente no lo encuentras aquí.</p></div>
+  </div>
+  <div class="prob-quote">
+    <blockquote>"Quiero verme bien, sentirme seguro con lo que llevo puesto y no gastar una fortuna. ¿Eso es pedir demasiado?"</blockquote>
+    <cite>— Lo que muchos clientes nos escriben antes de su primer pedido</cite>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══ 3. SOLUCIÓN — EL PUENTE ══ -->
+<div class="sol-wrap">
+  <div class="sol-inner">
+    <div class="sol-text">
+      <span class="lbl">La respuesta</span>
+      <h2 class="display" style="font-size:clamp(2.2rem,4vw,3.5rem); margin-bottom:28px;">Tropical Ecu:<br><em>moda que sí</em><br>funciona para ti</h2>
+      <p>No somos una tienda genérica. Somos un equipo en Guayaquil que selecciona piezas premium, las prueba, y te las acerca a un precio real. Pantalones con el corte que buscas, calzado de lujo que antes solo veías en pantalla.</p>
+      <p>Todo desde tu teléfono. Todo con la seguridad de poder pagar cuando recibes. Sin riesgo. Sin letra pequeña.</p>
+      <div class="pills">
+        <span class="pill">Baggy Jogger</span><span class="pill">Balmain</span><span class="pill">Valentino</span><span class="pill">Asics</span><span class="pill">Contra entrega</span><span class="pill">Envío nacional</span>
+      </div>
+    </div>
+    <div class="sol-swatches">
+      <div class="swatch" style="aspect-ratio:1;background:linear-gradient(160deg,#1a1a1a,#0d0d0d);"><div class="swatch-lbl"><span>Negro</span><small>Classic Black</small></div></div>
+      <div class="swatch" style="aspect-ratio:1;background:linear-gradient(160deg,#e8dcc8,#d4c5a9);"><div class="swatch-lbl"><span style="color:#111;">Beige</span><small>Natural Beige</small></div></div>
+      <div class="swatch" style="aspect-ratio:1;background:linear-gradient(160deg,#6b4c35,#4a3225);"><div class="swatch-lbl"><span>Café</span><small>Warm Brown</small></div></div>
+      <div class="swatch" style="aspect-ratio:1;background:linear-gradient(160deg,#2c4a6e,#1a2f45);"><div class="swatch-lbl"><span>Azul</span><small>Deep Navy</small></div></div>
+      <div class="swatch" style="aspect-ratio:1;background:linear-gradient(160deg,#7a7a7a,#4a4a4a);grid-column:span 2;aspect-ratio:2/1;"><div class="swatch-lbl"><span>Gris</span><small>Urban Grey</small></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ 4. BENEFICIOS — QUÉ GANO YO ══ -->
+<section class="sec" id="beneficios">
+  <span class="lbl">Lo que obtienes</span>
+  <h2 class="display" style="font-size:clamp(2rem,4vw,3.3rem);">No features. <em>Resultados.</em></h2>
+  <div class="ben-grid">
+    <div class="ben"><span class="ico">✂️</span><h3>Corte que te queda</h3><p>El Baggy Jogger tiene una caída perfecta. Cada talla tiene su guía de medidas exacta para que aciertes a la primera, sin adivinar.</p><span class="ben-res">→ Aciertas desde el primer pedido</span></div>
+    <div class="ben"><span class="ico">👑</span><h3>Calzado que marca diferencia</h3><p>Balmain, Valentino, Asics. Modelos que se ven en páginas de moda internacional. Ahora en Ecuador, con entrega directa a tu ciudad.</p><span class="ben-res">→ El look completo, no solo la mitad</span></div>
+    <div class="ben"><span class="ico">🛡️</span><h3>Cero riesgo al comprar</h3><p>Pagas previo o contra entrega. Tú decides. Envíos a todo el país con transportistas confiables y entrega personal en Guayaquil.</p><span class="ben-res">→ Pagas cuando ves que llegó bien</span></div>
+    <div class="ben"><span class="ico">⚡</span><h3>Pedido en 2 minutos</h3><p>Escríbenos por DM en Instagram. Te confirmamos disponibilidad, talla y color en minutos. Sin formularios. Directo y rápido.</p><span class="ben-res">→ Tu pedido listo antes de cerrar Instagram</span></div>
+    <div class="ben"><span class="ico">🎨</span><h3>Colores que combinan con todo</h3><p>Negro, Beige, Café, Azul Navy, Gris. Tonos clásicos atemporales que funcionan con cualquier outfit. Nada que pase de moda.</p><span class="ben-res">→ Inviertes una vez, usas siempre</span></div>
+    <div class="ben"><span class="ico">📍</span><h3>Somos locales</h3><p>Estamos en Guayaquil. Conocemos los tiempos de entrega y operadores del país. Respaldo real, no una cuenta anónima.</p><span class="ben-res">→ Alguien de verdad responde por tu pedido</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══ 5. PRUEBA SOCIAL — OTROS YA LO LOGRARON ══ -->
+<div class="reviews-wrap">
+  <div class="reviews-inner">
+    <span class="lbl">Clientes reales</span>
+    <h2 class="display" style="font-size:clamp(2rem,4vw,3.3rem);">Lo que dicen<br><em>quienes ya compraron</em></h2>
+    <div class="reviews-grid">
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"Me llegó el pantalón en 3 días a Quito, exactamente como en las fotos. La talla quedó perfecta usando la guía. Definitivamente vuelvo a comprar."</p>
+        <div class="rv-person"><div class="rv-av">M</div><div><div class="rv-name">Mateo R.</div><div class="rv-city">Quito · Baggy Negro T.32</div></div></div>
+      </div>
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"Los Balmain son increíbles. Jamás pensé tenerlos aquí en Ecuador a ese precio. Llegaron bien empacados y son exactamente lo que se muestra."</p>
+        <div class="rv-person"><div class="rv-av">J</div><div><div class="rv-name">Josué P.</div><div class="rv-city">Guayaquil · Balmain Black</div></div></div>
+      </div>
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"Pedí contra entrega porque nunca había comprado por Instagram. Todo perfecto, el repartidor llegó puntual. Le recomendé a mis amigos al instante."</p>
+        <div class="rv-person"><div class="rv-av">A</div><div><div class="rv-name">Andrés V.</div><div class="rv-city">Cuenca · Jogger Gris T.34</div></div></div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-n">1.7K+</div><div class="stat-l">Publicaciones en Instagram</div></div>
+      <div class="stat"><div class="stat-n">13.4K</div><div class="stat-l">Seguidores que confían</div></div>
+      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Contra entrega disponible</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ 6. OFERTA — MOMENTO CLAVE ══ -->
+<div id="oferta">
+
+  <!-- PAGO -->
+  <div class="pago-sec">
+    <span class="lbl">Elige cómo pagar</span>
+    <h2 class="display" style="font-size:clamp(2rem,4vw,3.3rem);">Sin complicaciones.<br><em>Tú decides.</em></h2>
+    <div class="pago-grid">
+      <div class="pay"><span class="ico">💳</span><h3>Previo Pago</h3><p>Abona antes del despacho por transferencia, depósito o pago digital. Tu pedido entra a la cola inmediatamente. Proceso más rápido.</p><span class="pay-badge">✓ Despacho inmediato</span></div>
+      <div class="pay"><span class="ico">📦</span><h3>Contra Entrega</h3><p>Recibe el paquete, revísalo, y paga al mensajero. Disponible para todo Ecuador. Ideal para tu primera compra si quieres total seguridad.</p><span class="pay-badge">✓ Pagas al recibir</span></div>
+    </div>
+  </div>
+
+  <!-- PANTALONES -->
+  <div class="pant-wrap" id="pantalones">
+    <div class="pant-inner">
+      <span class="lbl">Pantalones Baggy · Jogger · Jeans</span>
+      <h2 class="display" style="font-size:clamp(2rem,4vw,3.2rem); margin-bottom:14px;">Colección <em>completa</em></h2>
+      <p class="body-t" style="margin-bottom:52px;">Desliza las fotos para ver cada modelo · Tallas 30 a 42</p>
+
+      <!-- GRID DE TARJETAS CON CARRUSEL -->
+      <div class="prod-grid">
+
+        <!-- 1. PANTALON BAGGY JOGGER (algodón) -->
+        <div class="prod-card">
+          <div class="carousel" id="c0">
+            <div class="carousel-track" id="ct0">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__el-mimso-modelo-de-pantalon-hazlo-pero-en-una-imag__45103.png?v=1773596040" alt="Baggy Jogger Brown"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-6__45108.jpg?v=1773596052" alt="Baggy Jogger Black"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__45109.jpg?v=1773596050" alt="Baggy Jogger Beige"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__45110.jpg?v=1773596050" alt="Baggy Jogger Brown 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-12__45105.jpg?v=1773596050" alt="Baggy Jogger Black 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-10__45106.jpg?v=1773596050" alt="Baggy Jogger Beige 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-8__45107.jpg?v=1773596051" alt="Baggy Jogger Brown 3"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct0',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct0',1)">›</button>
+            <div class="car-dots" id="cd0"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Algodón peinable</span><span class="prod-tag prod-tag-new">Nuevo</span></div>
+            <h3 class="prod-name">Pantalón Baggy Jogger</h3>
+            <p class="prod-desc">100% algodón peinable. Corte holgado, comodidad y suavidad garantizada. Tallas 30–42.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#3a2a1e;" title="Brown"></span>
+              <span class="dot-color" style="background:#111;" title="Black"></span>
+              <span class="dot-color" style="background:#d4c5a9;" title="Beige"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span><span class="sz">40</span><span class="sz">42</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$35</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. PANTS BAGGY JOGGER ESTILO WILD -->
+        <div class="prod-card">
+          <div class="carousel" id="c1">
+            <div class="carousel-track" id="ct1">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__-cambiame-el-modelo-por-uno-mas-juvenil-y-la-camra__37086.png?v=1773599697" alt="Wild Style"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-2__37089.jpg?v=1773599700" alt="Wild 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-1__37088.jpg?v=1773599701" alt="Wild 3"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-6__37099.jpg?v=1773599700" alt="Wild 4"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__37087.jpg?v=1773599700" alt="Wild 5"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-9__37096.jpg?v=1773599701" alt="Wild 6"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-8__37095.jpg?v=1773599701" alt="Wild 7"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__37090.jpg?v=1773599701" alt="Wild 8"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__37094.jpg?v=1773599701" alt="Wild 9"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-4__37091.jpg?v=1773599701" alt="Wild 10"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct1',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct1',1)">›</button>
+            <div class="car-dots" id="cd1"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Streetwear</span><span class="prod-tag prod-tag-hot">🔥 Hot</span></div>
+            <h3 class="prod-name">Baggy Jogger Estilo Wild</h3>
+            <p class="prod-desc">Estilo urban wild. Corte holgado y relajado con detalles streetwear modernos. Tallas 30–42.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#111;" title="Black"></span>
+              <span class="dot-color" style="background:#3a2a1e;" title="Brown"></span>
+              <span class="dot-color" style="background:#d4c5a9;" title="Beige"></span>
+              <span class="dot-color" style="background:#2c4a6e;" title="Blue"></span>
+              <span class="dot-color" style="background:#555;" title="Gray"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span><span class="sz">40</span><span class="sz">42</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$35</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. PANTS BAGGY JOGGER XL WILD -->
+        <div class="prod-card">
+          <div class="carousel" id="c2">
+            <div class="carousel-track" id="ct2">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__-cambiame-el-modelo-por-uno-mas-juvenil-y-la-camra__37102.png?v=1773602734" alt="XL Wild"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__37112.jpg?v=1773602376" alt="XL Wild 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-4__37113.jpg?v=1773602376" alt="XL Wild 3"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__37107.jpg?v=1773602376" alt="XL Wild 4"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__37114.jpg?v=1773602376" alt="XL Wild 5"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__37109.jpg?v=1773602376" alt="XL Wild 6"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__37116.jpg?v=1773602376" alt="XL Wild 7"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-8__37117.jpg?v=1773602376" alt="XL Wild 8"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-2__37111.jpg?v=1773602376" alt="XL Wild 9"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-1__37110.jpg?v=1773602376" alt="XL Wild 10"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct2',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct2',1)">›</button>
+            <div class="car-dots" id="cd2"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Para 1.80–1.85m</span><span class="prod-tag prod-tag-new">Especial</span></div>
+            <h3 class="prod-name">Baggy Jogger XL Wild</h3>
+            <p class="prod-desc">Diseñado para personas de 1.80 a 1.85m. Corte holgado XL con estilo urbano y funcional. Tallas 30–42.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#111;" title="Black"></span>
+              <span class="dot-color" style="background:#d4c5a9;" title="Beige"></span>
+              <span class="dot-color" style="background:#3a2a1e;" title="Brown"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span><span class="sz">40</span><span class="sz">42</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$35</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. PANTS LINO PRADA -->
+        <div class="prod-card">
+          <div class="carousel" id="c3">
+            <div class="carousel-track" id="ct3">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-2__67461.jpg?v=1773604401" alt="Lino Prada"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-1__67460.jpg?v=1773604401" alt="Lino Prada 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__67462.jpg?v=1773604401" alt="Lino Prada 3"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-4__67463.jpg?v=1773604401" alt="Lino Prada 4"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__67466.jpg?v=1773604401" alt="Lino Prada 5"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__ahora-analiza-la-tela-de-este-pantalon-que-esta-se__67459.jpg?v=1773604402" alt="Lino Prada Tela"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__67464.jpg?v=1773604401" alt="Lino Prada 6"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-6__67465.jpg?v=1773604401" alt="Lino Prada 7"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-9__67468.jpg?v=1773604401" alt="Lino Prada 8"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct3',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct3',1)">›</button>
+            <div class="car-dots" id="cd3"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Lino premium</span><span class="prod-tag prod-tag-lux">Elegante</span></div>
+            <h3 class="prod-name">Pants Lino Prada</h3>
+            <p class="prod-desc">Lino de alta calidad. Transpirable, fresco y elegante. Perfecto para clima cálido y ocasiones formales. Tallas 30–38.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#d4c5a9; border:1px solid #aaa;" title="Beige"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$45</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. PANTS GURKHA 2.0 OLD MONEY -->
+        <div class="prod-card">
+          <div class="carousel" id="c4">
+            <div class="carousel-track" id="ct4">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/QQQQQQQQQQQ.png?v=1773617805" alt="Gurkha Old Money"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-6__57191.jpg?v=1773617501" alt="Gurkha 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-8__57193.jpg?v=1773617501" alt="Gurkha 3"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-4__57189.jpg?v=1773617501" alt="Gurkha 4"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-1__57186.jpg?v=1773617501" alt="Gurkha 5"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__57192.jpg?v=1773617501" alt="Gurkha 6"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-2__57187.jpg?v=1773617501" alt="Gurkha 7"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__57188.jpg?v=1773617501" alt="Gurkha 8"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-9__57194.jpg?v=1773617501" alt="Gurkha 9"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__57190.jpg?v=1773617501" alt="Gurkha 10"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct4',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct4',1)">›</button>
+            <div class="car-dots" id="cd4"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Old Money</span><span class="prod-tag prod-tag-lux">Premium</span></div>
+            <h3 class="prod-name">Pants Gurkha 2.0</h3>
+            <p class="prod-desc">Diseño clásico Gurkha. Corte impecable, materiales premium y silueta moderna. El pantalón del estilo Old Money. Tallas 30–40.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#d4c5a9; border:1px solid #aaa;" title="Beige"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span><span class="sz">40</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$55</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. JEANS BAGGY HALO -->
+        <div class="prod-card">
+          <div class="carousel" id="c5">
+            <div class="carousel-track" id="ct5">
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/XXXXXXXXXXXXXXXXXXXXXXXXX.png?v=1773618745" alt="Jeans Halo Negro"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-5__57205.jpg?v=1773618745" alt="Jeans Halo Marino"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-4__57206.jpg?v=1773618745" alt="Jeans Halo Gris Oscuro"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-3__57207.jpg?v=1773618745" alt="Jeans Halo Gris Claro"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-2__57208.jpg?v=1773618745" alt="Jeans Halo Negro 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-1__57209.jpg?v=1773618745" alt="Jeans Halo Marino 2"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__variations__57210.png?v=1773618745" alt="Jeans Halo Variaciones"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-8__57202.jpg?v=1773618745" alt="Jeans Halo Gris"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-7__57203.jpg?v=1773618745" alt="Jeans Halo Negro 3"/>
+              <img src="https://cdn.shopify.com/s/files/1/0735/1356/6347/files/freepik__tile-6__57204.jpg?v=1773618745" alt="Jeans Halo Marino 3"/>
+            </div>
+            <button class="car-prev" onclick="carMove('ct5',-1)">‹</button>
+            <button class="car-next" onclick="carMove('ct5',1)">›</button>
+            <div class="car-dots" id="cd5"></div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-badges"><span class="prod-tag">Denim</span><span class="prod-tag prod-tag-new">Nuevo</span></div>
+            <h3 class="prod-name">Jeans Baggy Halo</h3>
+            <p class="prod-desc">Denim de calidad con el exclusivo color Halo. Corte relajado que favorece cualquier cuerpo. Resiste múltiples lavados. Tallas 30–40.</p>
+            <div class="prod-colors">
+              <span class="dot-color" style="background:#111;" title="Negro"></span>
+              <span class="dot-color" style="background:#1a2f45;" title="Azul Marino"></span>
+              <span class="dot-color" style="background:#444;" title="Gris Oscuro"></span>
+              <span class="dot-color" style="background:#999;" title="Gris Claro"></span>
+            </div>
+            <div class="prod-szs"><span class="sz">30</span><span class="sz">32</span><span class="sz">34</span><span class="sz">36</span><span class="sz">38</span><span class="sz">40</span></div>
+            <div class="prod-ft">
+              <span class="prod-price">$35</span>
+              <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="prod-btn">Pedir →</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /prod-grid -->
+
+      <!-- TALLAS -->
+      <h3 style="font-family:var(--font-d);font-size:1.75rem;font-weight:400;margin-top:72px;margin-bottom:4px;">Guía de <em>tallas</em></h3>
+      <table class="talla-table">
+        <thead><tr><th>Talla</th><th>Cintura (cm)</th><th>Basta (cm)</th></tr></thead>
+        <tbody>
+          <tr><td class="tc">30</td><td>78 – 80</td><td>25</td></tr>
+          <tr><td class="tc">32</td><td>82 – 84</td><td>25</td></tr>
+          <tr><td class="tc">34</td><td>86 – 88</td><td>26</td></tr>
+          <tr><td class="tc">36</td><td>90 – 92</td><td>26</td></tr>
+          <tr><td class="tc">38</td><td>94 – 96</td><td>27</td></tr>
+          <tr><td class="tc">40</td><td>100</td><td>27</td></tr>
+          <tr><td class="tc">42</td><td>110</td><td>28</td></tr>
+        </tbody>
+      </table>
+      <p class="tn">Medidas en cm · Si estás entre dos tallas, elige la mayor · ¿Dudas? Escríbenos por Instagram</p>
+    </div>
+  </div>
+
+  <!-- CALZADO -->
+  <div class="calz-wrap" id="calzado">
+    <div class="calz-inner">
+      <span class="lbl">Calzado más vendido · Premium</span>
+      <h2 class="display" style="font-size:clamp(2rem,4vw,3.3rem); margin-bottom:22px;">La elección de<br><em>verte bien</em> es tuya</h2>
+      <div class="calz-badges">
+        <div class="bdg">🚀 Envío a todo el país</div>
+        <div class="bdg">📦 Paga al recibir</div>
+        <div class="bdg bdg-hot">🔥 Pocas unidades</div>
+      </div>
+      <div class="fltrs">
+        <button class="fbtn active" onclick="fs('all',this)">Todos</button>
+        <button class="fbtn" onclick="fs('valentino',this)">Valentino</button>
+        <button class="fbtn" onclick="fs('balmain',this)">Balmain</button>
+        <button class="fbtn" onclick="fs('asics',this)">Asics</button>
+      </div>
+      <div class="shoes-grid" id="sg">
+
+        <!-- VALENTINO -->
+        <div class="sc" data-brand="valentino"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-28at21.26.28.jpg?v=1770413599" alt="Valentino"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-prem">Premium</span></div></div><div class="sc-body"><p class="sc-br">Valentino</p><h3 class="sc-nm">Valentino Garavani</h3><p class="sc-ds">Clásico atemporal de la alta costura italiana.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN WHITE BLUE -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/Whats-App-Image-2026-01-30-at-5-38-19-PM.jpg?v=1769895124" alt="Balmain White Blue"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court White Blue</h3><p class="sc-ds">Icono del lujo contemporáneo. Alta costura y streetwear.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN ORANGE BLACK -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/Whats-App-Image-2026-01-30-at-6-57-19-PM.jpg?v=1769897321" alt="Balmain Orange Black"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Orange Black</h3><p class="sc-ds">Minimalismo moderno con detalles de alta costura.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN ULTIMATE -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at6.51.36PM_1.jpg?v=1769897854" alt="Balmain Ultimate"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Ultimate</h3><p class="sc-ds">Diseño urbano premium. Exclusividad sin sacrificar comodidad.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN BLACK -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at7.02.42PM_1.jpg?v=1769920524" alt="Balmain Black"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Black</h3><p class="sc-ds">Negro total, atemporal y poderoso. Presencia inigualable.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN GREEN ORANGE -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at6.12.34PM.jpg?v=1769920975" alt="Balmain Green Orange"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Green Orange</h3><p class="sc-ds">Oliva, blanco y naranja. Para quienes lideran el estilo.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN BLACK CORE -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at6.02.07PM_1.jpg?v=1769921503" alt="Balmain Black Core"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Black Core</h3><p class="sc-ds">Piel negra con tachuelas. Artesanía francesa con actitud.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN SKY LINNUX -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at5.46.28PM_1.jpg?v=1769921722" alt="Balmain Sky Linnux"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Sky Linnux</h3><p class="sc-ds">Cuero blanco y azul celeste. Silueta tenística de lujo.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN PURE WHITE -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at4.38.07PM_1.jpg?v=1769922349" alt="Balmain Pure White"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Pure White</h3><p class="sc-ds">White Edition. Minimalismo de lujo parisino en su forma pura.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN PANTHER -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at4.39.39PM.jpg?v=1769922648" alt="Balmain Panther"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Panther</h3><p class="sc-ds">Piel acolchada. Baloncesto clásico elevado a la alta costura.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN FF -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-31at6.12.32PM_1.jpg?v=1769923734" alt="Balmain FF"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court FF Monograma</h3><p class="sc-ds">Patrón laberinto icónico. Negro y marfil. Para los que destacan.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN PURE LOW-TOP -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at6.30.55PM.jpg?v=1769923811" alt="Balmain Pure Low-Top"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court Pure Low-Top</h3><p class="sc-ds">Blanco óptico. Sofisticación arquitectónica parisina en corte bajo.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- BALMAIN WHITE 2 -->
+        <div class="sc" data-brand="balmain"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/WhatsAppImage2026-01-30at5.57.52PM.jpg?v=1769923839" alt="Balmain White 2"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-lux">Lujo</span></div></div><div class="sc-body"><p class="sc-br">Balmain</p><h3 class="sc-nm">B-Court White II</h3><p class="sc-ds">Cuero acolchado blanco total. Alta costura en su expresión más pura.</p><div class="sc-szs"><span class="sz">38</span><span class="sz">39</span><span class="sz">40</span><span class="sz">41</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$150</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+        <!-- ASICS GEL-LYTE -->
+        <div class="sc" data-brand="asics"><div class="sc-img"><img src="https://cdn.shopify.com/s/files/1/0974/9489/2829/files/s-l960.webp?v=1769204724" alt="Asics Gel-Lyte"/><div class="sc-bdg-wrap"><span class="sc-bdg bdg-sport">Sport</span></div></div><div class="sc-body"><p class="sc-br">Asics</p><h3 class="sc-nm">Gel-Lyte</h3><p class="sc-ds">Tecnología Gel-Lyte. Amortiguación superior, rendimiento y estilo.</p><div class="sc-szs"><span class="sz">40</span><span class="sz">41</span><span class="sz">42</span><span class="sz">43</span><span class="sz">44</span></div><p class="sc-units">🔥 Pocas unidades disponibles</p><div class="sc-ft"><span class="sc-price">$120</span><a href="https://www.instagram.com/tropicalecu/" target="_blank" class="sc-btn">Pedir →</a></div></div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ 7. FAQ — LAS OBJECIONES ══ -->
+<div class="faq-wrap" id="faq">
+  <div class="faq-inner">
+    <span class="lbl">Resolvemos tus dudas</span>
+    <h2 class="display" style="font-size:clamp(2rem,4vw,3.2rem); margin-bottom:48px;">Preguntas <em>frecuentes</em></h2>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿Cómo hago mi pedido?<span class="faq-ico">+</span></div><div class="faq-a"><p>Escríbenos directamente por DM en Instagram @tropicalecu. Dinos qué modelo quieres, tu talla y ciudad. Te confirmamos disponibilidad y coordinamos el envío. Es así de simple, sin formularios ni registros.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿Puedo realmente pagar cuando recibo?<span class="faq-ico">+</span></div><div class="faq-a"><p>Sí, 100%. Ofrecemos contra entrega a todo Ecuador a través de operadores logísticos. Recibes tu paquete, lo revisas, y pagas al mensajero. Sin riesgo de ningún tipo.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿Cuánto demora el envío a mi ciudad?<span class="faq-ico">+</span></div><div class="faq-a"><p>Para ciudades principales (Quito, Cuenca, Ambato, Manta): 2 a 4 días hábiles. Para ciudades más alejadas: hasta 5 días. Entrega personal en Guayaquil: el mismo día o al día siguiente.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿Cómo sé qué talla pedir?<span class="faq-ico">+</span></div><div class="faq-a"><p>En esta página tenemos la guía de tallas con medidas exactas en centímetros. Solo necesitas una cinta métrica y medir tu cintura. Si estás entre dos tallas, elige la mayor. También puedes consultarnos por Instagram.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿El calzado es original?<span class="faq-ico">+</span></div><div class="faq-a"><p>Vendemos calzado de inspiración premium de las marcas mencionadas. Son productos de muy alta calidad con diseños inspirados en los originales. Si tienes preguntas específicas sobre algún modelo, escríbenos y te damos todos los detalles antes de confirmar.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">¿Qué pasa si mi talla no está disponible?<span class="faq-ico">+</span></div><div class="faq-a"><p>Escríbenos por Instagram y te avisamos cuando tengamos restock. También podemos orientarte hacia un modelo similar disponible en tu talla. Actualizamos inventario constantemente.</p></div></div>
+  </div>
+</div>
+
+
+<!-- ══ 8. GARANTÍA — NO HAY RIESGO ══ -->
+<section class="sec" id="garantia">
+  <span class="lbl">Tu tranquilidad primero</span>
+  <h2 class="display" style="font-size:clamp(2rem,4vw,3.2rem);">Compras con <em>total seguridad</em></h2>
+  <div class="gar-grid">
+    <div class="gar"><span class="ico">🔒</span><h3>Pago seguro</h3><p>Contra entrega disponible para que solo pagues cuando tienes el producto en tus manos. Sin riesgo de perder tu dinero en ningún momento.</p></div>
+    <div class="gar"><span class="ico">📸</span><h3>Lo que ves es lo que recibes</h3><p>Todas las fotos son de los productos reales. Sin filtros engañosos. Puedes pedirnos fotos adicionales antes de confirmar tu pedido.</p></div>
+    <div class="gar"><span class="ico">💬</span><h3>Respuesta rápida real</h3><p>Respondemos todos los DMs. Si tienes una duda antes, durante o después de tu pedido, estamos ahí. Somos personas reales en Guayaquil.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══ 9. CTA FINAL — EL ÚLTIMO EMPUJÓN ══ -->
+<section class="cierre" id="pedir">
+  <div class="cierre-urg">🔥 Pocas unidades · No esperes más</div>
+  <h2>¿Qué estás<br><em>esperando?</em></h2>
+  <p>Escríbenos ahora. Tu pedido puede estar en camino hoy mismo. Sin complicaciones, sin riesgo, con estilo.</p>
+  <div class="cierre-btns">
+    <a href="https://www.instagram.com/tropicalecu/" target="_blank" class="btn-ig">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Pedir en @tropicalecu
+    </a>
+    <a href="#faq" class="btn-ghost">Tengo una duda</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">Tropical Ecu</span>
+  <div class="f-links">
+    <a href="https://www.instagram.com/tropicalecu/" target="_blank">Instagram</a>
+    <a href="https://www.tropicalecu.com" target="_blank">Tienda Web</a>
+    <a href="#pantalones">Pantalones</a>
+    <a href="#calzado">Calzado</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <p class="f-copy">© 2026 Tropical Ecu · Guayaquil, Ecuador</p>
+</footer>
+
+<script>
+  // ── CARRUSEL SWIPEABLE ──
+  (function() {
+    const carousels = [
+      { track: 'ct0', dots: 'cd0', counter: null },
+      { track: 'ct1', dots: 'cd1', counter: null },
+      { track: 'ct2', dots: 'cd2', counter: null },
+      { track: 'ct3', dots: 'cd3', counter: null },
+      { track: 'ct4', dots: 'cd4', counter: null },
+      { track: 'ct5', dots: 'cd5', counter: null },
+    ];
+
+    carousels.forEach(function(c) {
+      const track = document.getElementById(c.track);
+      if (!track) return;
+      const imgs = track.querySelectorAll('img');
+      const total = imgs.length;
+      let current = 0;
+      let startX = 0, isDragging = false;
+
+      // Crear dots
+      const dotsEl = document.getElementById(c.dots);
+      imgs.forEach(function(_, i) {
+        const dot = document.createElement('div');
+        dot.className = 'car-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = function() { goTo(i); };
+        dotsEl.appendChild(dot);
+      });
+
+      // Contador
+      const wrap = track.parentElement;
+      const counter = document.createElement('div');
+      counter.className = 'car-counter';
+      counter.textContent = '1 / ' + total;
+      wrap.appendChild(counter);
+
+      function goTo(idx) {
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) idx = 0;
+        current = idx;
+        track.style.transform = 'translateX(-' + (100 * current) + '%)';
+        dotsEl.querySelectorAll('.car-dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+        counter.textContent = (current + 1) + ' / ' + total;
+      }
+
+      // Touch swipe
+      wrap.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+      wrap.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+        isDragging = false;
+      });
+
+      // Mouse drag
+      wrap.addEventListener('mousedown', function(e) { startX = e.clientX; isDragging = true; });
+      wrap.addEventListener('mouseup', function(e) {
+        if (!isDragging) return;
+        const diff = startX - e.clientX;
+        if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+        isDragging = false;
+      });
+      wrap.addEventListener('mouseleave', function() { isDragging = false; });
+
+      // Exponer para botones
+      track._goTo = goTo;
+      track._getCurrent = function() { return current; };
+    });
+  })();
+
+  function carMove(trackId, dir) {
+    const track = document.getElementById(trackId);
+    if (track && track._goTo) track._goTo(track._getCurrent() + dir);
+  }
+
+  function tFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+  function fs(brand, btn) {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.sc').forEach(card => {
+      card.style.display = (brand === 'all' || card.dataset.brand === brand) ? 'block' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

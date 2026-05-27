@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grupo Gastronómico — CEGI & Yoyaku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      /* CEGI */
+      --c-red:    #C8102E;
+      --c-red2:   #a00d24;
+      --c-blue:   #1B3A8C;
+      --c-blue2:  #0f276b;
+      --c-light:  #f4f6fb;
+      /* YOYAKU */
+      --y-orange: #F4831F;
+      --y-orange2:#d46b10;
+      --y-dark:   #111111;
+      --y-card:   #1c1c1c;
+      /* SHARED */
+      --white: #ffffff;
+      --gray:  #6b7280;
+      --line:  rgba(0,0,0,0.08);
+      --f-h: 'Montserrat', sans-serif;
+      --f-b: 'Lato', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--f-b); overflow-x: hidden; color: #111; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+    }
+    .nav-brand {
+      font-family: var(--f-h); font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #111;
+      text-decoration: none;
+    }
+    .nav-brand span.r { color: var(--c-red); }
+    .nav-brand span.o { color: var(--y-orange); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      font-family: var(--f-h); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; padding: 8px 18px; border-radius: 50px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .nav-links a.cegi  { color: var(--c-red);    border: 2px solid var(--c-red); }
+    .nav-links a.cegi:hover  { background: var(--c-red);  color: #fff; }
+    .nav-links a.yoyaku{ color: var(--y-orange); border: 2px solid var(--y-orange); }
+    .nav-links a.yoyaku:hover{ background: var(--y-orange); color: #fff; }
+    .nav-wa {
+      font-family: var(--f-h); font-size: 0.7rem; font-weight: 700;
+      background: #25D366; color: #fff; padding: 10px 20px; border-radius: 50px;
+      text-decoration: none; display: flex; align-items: center; gap: 8px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-wa:hover { background: #1da855; transform: scale(1.04); }
+
+    /* ── HERO SPLIT ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 100svh; padding-top: 68px;
+    }
+    .hero-half {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 64px 6%;
+      min-height: 100%;
+    }
+    .hero-half::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.1) 100%);
+      z-index: 1;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-size: cover; background-position: center;
+      transition: transform 8s ease;
+    }
+    .hero-half:hover .hero-bg { transform: scale(1.04); }
+    .hero-cegi   .hero-bg { background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&auto=format&fit=crop&q=80'); }
+    .hero-yoyaku .hero-bg { background-image: url('https://images.unsplash.com/photo-1553621042-f6e147245754?w=900&auto=format&fit=crop&q=80'); }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-pill {
+      display: inline-block; font-family: var(--f-h); font-size: 0.6rem;
+      font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 18px;
+      opacity: 0; animation: fadeUp 0.6s ease forwards;
+    }
+    .hero-cegi   .hero-pill { background: var(--c-red);    color: #fff; animation-delay: 0.2s; }
+    .hero-yoyaku .hero-pill { background: var(--y-orange); color: #fff; animation-delay: 0.35s; }
+    .hero-h1 {
+      font-family: var(--f-h); font-weight: 900; line-height: 1.0;
+      letter-spacing: -0.03em; color: #fff;
+      font-size: clamp(2.4rem, 4.5vw, 5rem);
+      opacity: 0; animation: fadeUp 0.7s ease forwards;
+    }
+    .hero-cegi   .hero-h1 { animation-delay: 0.3s; }
+    .hero-yoyaku .hero-h1 { animation-delay: 0.45s; }
+    .hero-sub {
+      font-size: 0.92rem; color: rgba(255,255,255,0.78); line-height: 1.7;
+      margin: 14px 0 28px; max-width: 360px;
+      opacity: 0; animation: fadeUp 0.7s ease forwards;
+    }
+    .hero-cegi   .hero-sub { animation-delay: 0.42s; }
+    .hero-yoyaku .hero-sub { animation-delay: 0.57s; }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--f-h); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; padding: 15px 32px; border-radius: 50px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0; animation: fadeUp 0.7s ease forwards;
+    }
+    .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+    .hero-cegi   .hero-btn { background: var(--c-red);    color: #fff; animation-delay: 0.55s; }
+    .hero-yoyaku .hero-btn { background: var(--y-orange); color: #fff; animation-delay: 0.7s; }
+
+    .hero-divider {
+      position: absolute; top: 0; left: 50%; bottom: 0;
+      width: 4px; background: #fff; z-index: 10;
+      transform: translateX(-50%);
+    }
+
+    /* ── SECTION BASE ── */
+    .sec { padding: 90px 5%; }
+    .sec-label {
+      font-family: var(--f-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: var(--f-h); font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .sec-body {
+      font-size: 0.95rem; color: var(--gray);
+      line-height: 1.8; max-width: 560px; margin-top: 14px;
+    }
+    .max { max-width: 1200px; margin: 0 auto; }
+
+    /* ══════════════════════════════
+       CEGI SECTION
+    ══════════════════════════════ */
+    #cegi { background: var(--c-light); }
+    #cegi .sec-label { color: var(--c-red); }
+    #cegi .sec-title { color: var(--c-blue); }
+
+    .cegi-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center; margin-bottom: 72px;
+    }
+    .cegi-img-wrap {
+      position: relative; border-radius: 4px; overflow: hidden;
+    }
+    .cegi-img-wrap img {
+      width: 100%; display: block;
+      aspect-ratio: 4/3; object-fit: cover;
+    }
+    .cegi-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--c-red); color: #fff;
+      font-family: var(--f-h); font-size: 0.7rem; font-weight: 700;
+      padding: 10px 18px; border-radius: 50px;
+      letter-spacing: 0.08em;
+    }
+    .cegi-ctas { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--c-red); color: #fff;
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 15px 30px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-red:hover { background: var(--c-red2); transform: translateY(-2px); }
+    .btn-blue-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid var(--c-blue); color: var(--c-blue);
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 13px 28px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-blue-outline:hover { background: var(--c-blue); color: #fff; transform: translateY(-2px); }
+
+    /* Courses grid */
+    .courses-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-bottom: 56px;
+    }
+    .course-card {
+      background: #fff; border-radius: 4px;
+      border-top: 4px solid var(--c-red);
+      padding: 32px 24px 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      opacity: 0; transform: translateY(20px);
+    }
+    .course-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, transform 0.25s; }
+    .course-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(28,58,140,0.12); }
+    .course-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .course-name {
+      font-family: var(--f-h); font-weight: 800; font-size: 0.92rem;
+      color: var(--c-blue); letter-spacing: -0.01em; line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .course-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.65; }
+
+    /* Why CEGI */
+    .cegi-why {
+      background: var(--c-blue); color: #fff;
+      border-radius: 4px; padding: 56px 5%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center;
+    }
+    .cegi-why .sec-title { color: #fff; }
+    .cegi-why .sec-label { color: rgba(255,255,255,0.55); }
+    .cegi-why .sec-body  { color: rgba(255,255,255,0.7); max-width: none; }
+    .why-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .why-feat {
+      background: rgba(255,255,255,0.07); border-radius: 4px;
+      padding: 22px; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .why-feat strong {
+      display: block; font-family: var(--f-h); font-size: 0.82rem;
+      font-weight: 700; color: #fff; margin-bottom: 6px;
+    }
+    .why-feat span { font-size: 0.78rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* Certifications */
+    .certs {
+      margin-top: 56px; padding: 32px 0;
+      border-top: 1px solid rgba(27,58,140,0.12);
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .certs-label {
+      font-family: var(--f-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray);
+    }
+    .cert-badge {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 4px; padding: 10px 20px;
+      font-family: var(--f-h); font-size: 0.7rem; font-weight: 700;
+      color: var(--c-blue); letter-spacing: 0.06em;
+    }
+
+    /* ══════════════════════════════
+       DIVIDER BANNER
+    ══════════════════════════════ */
+    .brand-divider {
+      background: #111; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 5%; text-align: center; gap: 32px; flex-wrap: wrap;
+    }
+    .bd-brand {
+      font-family: var(--f-h); font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: -0.03em;
+    }
+    .bd-brand.cegi { color: var(--c-red); }
+    .bd-brand.yoyaku { color: var(--y-orange); }
+    .bd-sep { font-size: 1.2rem; color: rgba(255,255,255,0.25); }
+    .bd-sub {
+      font-family: var(--f-h); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-top: 6px;
+    }
+
+    /* ══════════════════════════════
+       YOYAKU SECTION
+    ══════════════════════════════ */
+    #yoyaku { background: var(--y-dark); }
+    #yoyaku .sec-label { color: var(--y-orange); }
+    #yoyaku .sec-title { color: #fff; }
+    #yoyaku .sec-body  { color: rgba(255,255,255,0.55); }
+
+    .yoyaku-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center; margin-bottom: 64px;
+    }
+    .yoyaku-img-wrap {
+      position: relative; border-radius: 4px; overflow: hidden;
+    }
+    .yoyaku-img-wrap img {
+      width: 100%; display: block;
+      aspect-ratio: 4/3; object-fit: cover;
+    }
+    .yoyaku-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(244,131,31,0.3) 0%, transparent 60%);
+    }
+    .yoyaku-pill {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--y-orange); color: #fff;
+      font-family: var(--f-h); font-size: 0.68rem; font-weight: 800;
+      padding: 8px 16px; border-radius: 50px;
+    }
+
+    .btn-orange {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--y-orange); color: #fff;
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 15px 30px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-orange:hover { background: var(--y-orange2); transform: translateY(-2px); }
+    .btn-orange-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid rgba(244,131,31,0.5); color: var(--y-orange);
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 13px 28px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-orange-outline:hover { background: var(--y-orange); color: #fff; transform: translateY(-2px); }
+
+    /* Menu */
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-bottom: 56px;
+    }
+    .menu-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 1; cursor: pointer;
+    }
+    .menu-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover img { transform: scale(1.08); }
+    .menu-card-info {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 22px 20px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .menu-card:hover .menu-card-info { opacity: 1; }
+    .menu-card-name {
+      font-family: var(--f-h); font-weight: 800; font-size: 1rem;
+      color: #fff; line-height: 1.2; margin-bottom: 6px;
+    }
+    .menu-card-price {
+      font-family: var(--f-h); font-weight: 700; font-size: 0.88rem;
+      color: var(--y-orange);
+    }
+    .menu-card-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--y-orange); color: #fff;
+      font-family: var(--f-h); font-size: 0.58rem; font-weight: 800;
+      letter-spacing: 0.1em; padding: 5px 12px; border-radius: 50px;
+      text-transform: uppercase;
+    }
+
+    /* Promos */
+    .promos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 56px;
+    }
+    .promo-card {
+      background: var(--y-card); border-radius: 4px;
+      padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.25s, transform 0.25s;
+      opacity: 0; transform: translateY(20px);
+    }
+    .promo-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s; }
+    .promo-card:hover { border-color: var(--y-orange); transform: translateY(-4px); }
+    .promo-icon { font-size: 2rem; margin-bottom: 14px; }
+    .promo-name {
+      font-family: var(--f-h); font-weight: 800; font-size: 1rem;
+      color: #fff; margin-bottom: 8px;
+    }
+    .promo-name span { color: var(--y-orange); }
+    .promo-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+    .promo-badge {
+      display: inline-block; margin-top: 14px;
+      background: rgba(244,131,31,0.15); color: var(--y-orange);
+      font-family: var(--f-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; padding: 5px 12px; border-radius: 50px;
+      text-transform: uppercase;
+    }
+
+    /* Info bar */
+    .yoyaku-info {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 16px; margin-top: 56px;
+    }
+    .info-item {
+      background: var(--y-card); border-radius: 4px;
+      padding: 28px 24px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .info-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .info-title {
+      font-family: var(--f-h); font-weight: 700; font-size: 0.82rem;
+      color: #fff; margin-bottom: 6px; letter-spacing: 0.04em;
+    }
+    .info-val { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* ── CTA FINAL ── */
+    .final-cta {
+      background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-red) 100%);
+      padding: 80px 5%; text-align: center; color: #fff;
+    }
+    .final-cta h2 {
+      font-family: var(--f-h); font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px;
+    }
+    .final-cta p { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-bottom: 40px; }
+    .cta-duo { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--c-blue);
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 16px 34px; border-radius: 50px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    .btn-wa-big {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      font-family: var(--f-h); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 16px 34px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-wa-big:hover { background: #1da855; transform: translateY(-3px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a; color: rgba(255,255,255,0.4);
+      padding: 48px 5%;
+    }
+    .foot { max-width: 1200px; margin: 0 auto; }
+    .foot-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px; padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+    .foot-brand {
+      font-family: var(--f-h); font-weight: 900; font-size: 1.1rem;
+      color: #fff; margin-bottom: 10px; letter-spacing: -0.02em;
+    }
+    .foot-brand .r { color: var(--c-red); }
+    .foot-brand .o { color: var(--y-orange); }
+    .foot-desc { font-size: 0.8rem; line-height: 1.7; }
+    .foot-heading {
+      font-family: var(--f-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-bottom: 16px;
+    }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .foot-links a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .foot-links a:hover { color: #fff; }
+    .foot-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 800;
+      width: 58px; height: 58px;
+      background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      text-decoration: none; font-size: 1.7rem;
+      animation: waPulse 2.4s ease infinite;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+      50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.75), 0 0 0 8px rgba(37,211,102,0.12); }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-half { min-height: 55svh; }
+      .hero-divider { display: none; }
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      .cegi-intro, .yoyaku-intro { grid-template-columns: 1fr; gap: 36px; }
+      .courses-grid { grid-template-columns: 1fr 1fr; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .promos-grid { grid-template-columns: 1fr; }
+      .yoyaku-info { grid-template-columns: 1fr 1fr; }
+      .cegi-why { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; gap: 32px; }
+      .foot-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 560px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .yoyaku-info { grid-template-columns: 1fr; }
+      .hero-h1 { font-size: 2.6rem; }
+      .sec { padding: 64px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <span class="r">CEGI</span> &amp; <span class="o">Yoyaku</span>
+    </a>
+    <div class="nav-links">
+      <a href="#cegi"   class="cegi">CEGI</a>
+      <a href="#yoyaku" class="yoyaku">Yoyaku</a>
+    </div>
+    <a href="https://wa.me/593985304070" target="_blank" rel="noopener" class="nav-wa">
+      📲 WhatsApp
+    </a>
+  </nav>
+
+  <!-- HERO SPLIT -->
+  <section class="hero">
+    <div class="hero-half hero-cegi">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="hero-pill">Centro de Formación</span>
+        <h1 class="hero-h1">Aprende<br>Gastronomía<br>Profesional</h1>
+        <p class="hero-sub">Forma parte del Centro Educativo Gastronómico Iberoamericano. Cursos certificados, técnica real, futuro garantizado.</p>
+        <a href="https://wa.me/593985304070?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20cursos%20de%20CEGI" target="_blank" rel="noopener" class="hero-btn">
+          📋 Ver cursos
+        </a>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-half hero-yoyaku">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="hero-pill">Sushi Bar · Delivery</span>
+        <h1 class="hero-h1">Cocina<br>Nikkey<br>Auténtica</h1>
+        <p class="hero-sub">Los mejores rolls de la ciudad, listos para delivery o pickup. Pide ahora y recibe en tu puerta.</p>
+        <a href="https://wa.me/5930993570663?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Yoyaku" target="_blank" rel="noopener" class="hero-btn">
+          🍣 Pedir ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CEGI ══ -->
+  <section id="cegi" class="sec">
+    <div class="max">
+
+      <div class="cegi-intro">
+        <div class="cegi-img-wrap">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&auto=format&fit=crop&q=80" alt="Estudiantes de gastronomía en cocina profesional"/>
+          <span class="cegi-badge">✅ Certificados internacionalmente</span>
+        </div>
+        <div>
+          <p class="sec-label">CEGI · Durán, Ecuador</p>
+          <h2 class="sec-title">Más que una<br>escuela de<br>gastronomía.</h2>
+          <p class="sec-body">En CEGI la técnica se une con la creatividad. Cada estudiante aprende a contar historias a través de los sabores. Formamos chefs completos: con manos, mente y corazón.</p>
+          <div class="cegi-ctas">
+            <a href="https://wa.me/593985304070?text=Quiero%20inscribirme%20en%20CEGI" target="_blank" rel="noopener" class="btn-red">
+              📲 Inscríbete por WhatsApp
+            </a>
+            <a href="https://wa.me/593985304070?text=Hola%2C%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20CEGI" target="_blank" rel="noopener" class="btn-blue-outline">
+              Más información
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSES -->
+      <p class="sec-label" style="color:var(--c-red)">Programas de estudio</p>
+      <h3 class="sec-title" style="color:var(--c-blue);margin-bottom:36px">Elige tu especialidad</h3>
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-icon">🥐</div>
+          <h4 class="course-name">Panadería y Pastelería</h4>
+          <p class="course-desc">Domina el arte del pan artesanal, croissants, tortas y postres de nivel profesional.</p>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">🍹</div>
+          <h4 class="course-name">Bares y Cocina Fría</h4>
+          <p class="course-desc">Cócteles, tragos, ceviches y preparaciones frías que marcan la diferencia.</p>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">🇪🇨</div>
+          <h4 class="course-name">Cocina Ecuatoriana</h4>
+          <p class="course-desc">Técnicas tradicionales y fusión moderna de la gastronomía del Ecuador.</p>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">🌍</div>
+          <h4 class="course-name">Cocina Internacional</h4>
+          <p class="course-desc">Italiana, francesa, asiática y más. Una vuelta al mundo desde tu cocina.</p>
+        </div>
+      </div>
+
+      <!-- WHY CEGI -->
+      <div class="cegi-why">
+        <div>
+          <p class="sec-label">¿Por qué CEGI?</p>
+          <h3 class="sec-title">Formación que abre puertas</h3>
+          <p class="sec-body">No solo te enseñamos a cocinar. Te damos las herramientas para emprender, trabajar en restaurantes de nivel y destacar en el mundo gastronómico.</p>
+          <a href="https://wa.me/593985304070?text=Quiero%20inscribirme%20en%20CEGI" target="_blank" rel="noopener" class="btn-red" style="margin-top:28px">
+            📲 Inscríbete ahora — 098 530 4070
+          </a>
+        </div>
+        <div class="why-features">
+          <div class="why-feat"><strong>Certificación internacional</strong><span>Avalados por AEGA, ACE y organismos reconocidos.</span></div>
+          <div class="why-feat"><strong>Práctica real</strong><span>Cocinas equipadas y proyectos reales desde el primer día.</span></div>
+          <div class="why-feat"><strong>Emprendimiento</strong><span>Te acompañamos a crear tu propio negocio gastronómico.</span></div>
+          <div class="why-feat"><strong>Catering & Eventos</strong><span>Aprende la logística de eventos reales de alto nivel.</span></div>
+        </div>
+      </div>
+
+      <div class="certs">
+        <span class="certs-label">Certificado por</span>
+        <span class="cert-badge">AEGA</span>
+        <span class="cert-badge">ACE</span>
+        <span class="cert-badge">Certificación Internacional</span>
+        <span class="cert-badge">📍 Durán — Abel Gilbert Pontón</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="brand-divider">
+    <div>
+      <div class="bd-brand cegi">CEGI</div>
+      <div class="bd-sub">Gastronomía educativa</div>
+    </div>
+    <div class="bd-sep">✦</div>
+    <div>
+      <div class="bd-brand yoyaku">YOYAKU</div>
+      <div class="bd-sub">Cocina Nikkey · Sushi Bar</div>
+    </div>
+  </div>
+
+  <!-- ══ YOYAKU ══ -->
+  <section id="yoyaku" class="sec">
+    <div class="max">
+
+      <div class="yoyaku-intro">
+        <div>
+          <p class="sec-label">Yoyaku Sushi Bar</p>
+          <h2 class="sec-title">Cocina Nikkey<br>para todos<br>los gustos.</h2>
+          <p class="sec-body">Rolls creativos, Pam Bao, combos increíbles y sabores que no vas a olvidar. Delivery a domicilio o PickUp — lo que prefieras.</p>
+          <div class="cegi-ctas" style="margin-top:28px">
+            <a href="https://wa.me/5930993570663?text=Hola%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="btn-orange">
+              🍣 Pedir por WhatsApp
+            </a>
+            <a href="https://wa.me/5930993570663?text=Hola%2C%20qu%C3%A9%20tienen%20disponible%20hoy" target="_blank" rel="noopener" class="btn-orange-outline">
+              Ver el menú
+            </a>
+          </div>
+        </div>
+        <div class="yoyaku-img-wrap">
+          <img src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=800&auto=format&fit=crop&q=80" alt="Plato de sushi artístico"/>
+          <div class="yoyaku-overlay"></div>
+          <span class="yoyaku-pill">🚀 Delivery disponible</span>
+        </div>
+      </div>
+
+      <!-- MENU GRID -->
+      <p class="sec-label" style="margin-bottom:8px">Lo más pedido</p>
+      <h3 class="sec-title" style="color:#fff;margin-bottom:28px">El menú que enamora</h3>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=600&auto=format&fit=crop&q=80" alt="Rolls de sushi premium"/>
+          <span class="menu-card-tag">⭐ Popular</span>
+          <div class="menu-card-info">
+            <div class="menu-card-name">Rolls Premium</div>
+            <div class="menu-card-price">Desde $3.75</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&auto=format&fit=crop&q=80" alt="Combinados de sushi"/>
+          <span class="menu-card-tag">🔥 Combo</span>
+          <div class="menu-card-info">
+            <div class="menu-card-name">Combos Especiales</div>
+            <div class="menu-card-price">10 / 20 / 40 piezas</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&auto=format&fit=crop&q=80" alt="Sushi variado artesanal"/>
+          <span class="menu-card-tag">🥢 Nikkey</span>
+          <div class="menu-card-info">
+            <div class="menu-card-name">Cocina Nikkey</div>
+            <div class="menu-card-price">Pedido a medida</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROMOS -->
+      <h3 class="sec-title" style="color:#fff;margin-bottom:28px">Promociones activas</h3>
+      <div class="promos-grid">
+        <div class="promo-card">
+          <div class="promo-icon">🍣</div>
+          <h4 class="promo-name">Sushi Personal <span>$3.75</span></h4>
+          <p class="promo-desc">5 rollitos para ti. La opción perfecta para darte un gusto sin gastar de más.</p>
+          <span class="promo-badge">Solo en Yoyaku</span>
+        </div>
+        <div class="promo-card">
+          <div class="promo-icon">🥟</div>
+          <h4 class="promo-name">Wantán <span>GRATIS</span></h4>
+          <p class="promo-desc">Todos los combos incluyen Wantán gratis solo por feriados. ¡No te lo pierdas!</p>
+          <span class="promo-badge">Feriados</span>
+        </div>
+        <div class="promo-card">
+          <div class="promo-icon">🥐</div>
+          <h4 class="promo-name">Pam Bao <span>de Nuez</span></h4>
+          <p class="promo-desc">Suave, esponjoso y lleno de sabor. El nuevo favorito de todos. ¡Pruébalo!</p>
+          <span class="promo-badge">Nuevo</span>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="yoyaku-info">
+        <div class="info-item">
+          <div class="info-icon">🚚</div>
+          <div class="info-title">Delivery & PickUp</div>
+          <div class="info-val">Pedidos a domicilio o retiro en local. Coordinamos por WhatsApp.</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div class="info-title">Pide por WhatsApp</div>
+          <div class="info-val">099 357 0663<br>Respondemos al instante.</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🍜</div>
+          <div class="info-title">Cocina Nikkey</div>
+          <div class="info-val">Fusión japonesa-peruana con ingredientes frescos de calidad premium.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="max">
+      <h2>¿Listo para dar el siguiente paso?</h2>
+      <p>Inscríbete en CEGI o haz tu pedido en Yoyaku — estamos a un mensaje de distancia.</p>
+      <div class="cta-duo">
+        <a href="https://wa.me/593985304070?text=Quiero%20inscribirme%20en%20CEGI" target="_blank" rel="noopener" class="btn-white">
+          📋 Inscribirse en CEGI
+        </a>
+        <a href="https://wa.me/5930993570663?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Yoyaku" target="_blank" rel="noopener" class="btn-wa-big">
+          🍣 Pedir en Yoyaku
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-brand"><span class="r">CEGI</span> &amp; <span class="o">Yoyaku</span></div>
+          <p class="foot-desc">Dos marcas, una misma pasión por la gastronomía. Formamos chefs y servimos experiencias únicas en Ecuador.</p>
+        </div>
+        <div>
+          <p class="foot-heading">CEGI</p>
+          <ul class="foot-links">
+            <li><a href="https://wa.me/593985304070" target="_blank" rel="noopener">📲 098 530 4070</a></li>
+            <li><a href="#">📍 Durán — Abel Gilbert Pontón</a></li>
+            <li><a href="https://www.instagram.com/cegi.ecuador/" target="_blank" rel="noopener">📸 @cegi.ecuador</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="foot-heading">Yoyaku Sushi Bar</p>
+          <ul class="foot-links">
+            <li><a href="https://wa.me/5930993570663" target="_blank" rel="noopener">📲 099 357 0663</a></li>
+            <li><a href="#">🚚 Delivery & PickUp</a></li>
+            <li><a href="https://www.instagram.com/yoyakusushi/" target="_blank" rel="noopener">📸 @yoyakusushi</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2025 CEGI & Yoyaku — Todos los derechos reservados.</span>
+        <span>Hecho con ❤️ en Ecuador</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/593985304070" target="_blank" rel="noopener" class="wa-float" title="Contáctanos por WhatsApp">
+    💬
+  </a>
+
+  <script>
+    // Staggered scroll reveal
+    const revealEls = document.querySelectorAll('.course-card, .promo-card');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const siblings = entry.target.parentElement.querySelectorAll('.course-card, .promo-card');
+          siblings.forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 100);
+          });
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
